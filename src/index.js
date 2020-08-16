@@ -3,6 +3,8 @@ const { response } = require('express');
 
 const app = express();
 
+app.use(express.json());
+
 /**
  *  Métodos HTTP:
  * 
@@ -12,7 +14,21 @@ const app = express();
  * DELETE: Deletar uma informação no back-end
  */
 
+/**
+ * Tipos de parametros:
+ * 
+ * Query Params: Filtros e paginação
+ * Route Params: Identificar recursos (Atualizar/Deletar)
+ * Request Body: Conteúdo na hora de criar ou editar um recurso através do JSON
+ */
+
 app.get('/projects', (request, response) => {
+    const { title, owner } = request.query;
+
+    console.log(title);
+    console.log(owner);
+
+
     return response.json([
         'Projeto 1',
         'Projeto 2'
@@ -20,7 +36,12 @@ app.get('/projects', (request, response) => {
 });
 
 app.post('/projects', (req, res) => {
-    return response.json([
+    const { title, owner } = req.body;
+    console.log(title);
+    console.log(owner);
+
+
+    return res.json([
         'Projeto 1',
         'Projeto 2',
         'Projeto 3'
@@ -28,7 +49,10 @@ app.post('/projects', (req, res) => {
 })
 
 app.put('/projects/:id', (req, res) => {
-    return response.json([
+    const { id } = req.params;
+    console.log(id);
+
+    return res.json([
         'Projeto 4',
         'Projeto 2',
         'Projeto 3'
@@ -36,7 +60,7 @@ app.put('/projects/:id', (req, res) => {
 })
 
 app.delete('/projects/:id', (req, res) => {
-    return response.json([
+    return res.json([
         'Projeto 4',
         'Projeto 3'
     ])

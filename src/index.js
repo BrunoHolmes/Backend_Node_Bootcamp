@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const { response } = require('express');
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 /**
@@ -106,7 +108,7 @@ app.delete('/projects/:id', (req, res) => {
 
     project.splice(projectIndex, 1);
 
-    return res.status(204).json.send()
+    return res.status(204).json.send();
 })
 
 app.listen(3333, () => {
